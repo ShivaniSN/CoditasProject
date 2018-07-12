@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CoditasProject</string>
+    <string name="navigation_header_value">UserName</string>
+    <string name="main_menu_item_value">Search</string>
+    <string name="sort_menu_item1_value">Name (A-Z)</string>
+    <string name="sort_menu_item2_value">Name (Z-A)</string>
+    <string name="sort_menu_item3_value">Rank</string>
+    <string name="sort_menu_item4_value">Rank</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="activity_main_textview1">Sort By</string>
+    <string name="activity_main_textview2">Showing results</string>
+    <string name="recycleritem_users_textview1">View Details</string>
+    <string name="recycleritem_users_textview2">Name</string>
+    <string name="recycleritem_users_textview3">Score</string>
+</resources>
