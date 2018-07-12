@@ -12,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ public class Activity_Main extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     RelativeLayout relativeLayoutSort;
+    SearchView searchView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +66,27 @@ public class Activity_Main extends AppCompatActivity {
         toolbar.inflateMenu(R.menu.main_menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchManager searchManager = (SearchManager) Activity_Main.this.getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(Activity_Main.this.getComponentName()));
-        }
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    searchView.clearFocus();
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if (newText.length() > 2)
+                        getUsersVolleyRequest(newText);
+                    return false;
+                }
+            });
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -119,8 +134,9 @@ public class Activity_Main extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    public void getUsersVolleyRequest(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.GET_USER_LIST,
+    public void getUsersVolleyRequest(String stringSearchList){
+        final String stringSearch = stringSearchList;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.GET_USER_LIST,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -146,15 +162,15 @@ public class Activity_Main extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
-                //params.put("q",);
+                params.put("q",stringSearch);
                 return params;
             }
         };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                10000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+//                10000,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
     }
 }
