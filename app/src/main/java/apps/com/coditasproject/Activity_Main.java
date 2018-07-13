@@ -118,6 +118,16 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
+        recyclerViewUsers.addOnItemTouchListener(new RecyclerTouchListener(Activity_Main.this, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(Activity_Main.this, Activity_Details.class);
+                intent.putExtra("name",usersList.get(position).getStringUserName());
+                intent.putExtra("image",usersList.get(position).getStringProfileImage());
+                startActivity(intent);
+            }
+        }));
+
         relativeLayoutSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

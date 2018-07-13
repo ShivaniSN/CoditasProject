@@ -27,14 +27,11 @@
             android:id="@+id/textViewHeader"
             android:fontFamily="@font/lato_regular"/>
     </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,198 +72,21 @@
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
                     android:fontFamily="@font/lato_regular"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    android:id="@+id/btn_viewprofile"/>
             </LinearLayout>
         </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGrey"/>
-        <RelativeLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_viewRepos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_name_ldpi"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:id="@+id/image1"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@+id/image1"
-                android:layout_toLeftOf="@+id/tv_details">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_textview1"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16dp"
-                    android:fontFamily="@font/lato_regular"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recycleritem_users_textview2"
-                    android:id="@+id/tv_reponame"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/lato_black"/>
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_description_ldpi"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:id="@+id/image2"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@+id/image2"
-                android:layout_toLeftOf="@+id/tv_details">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_textview2"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16dp"
-                    android:fontFamily="@font/lato_regular"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recycleritem_users_textview2"
-                    android:id="@+id/tv_repodesc"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/lato_black"/>
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_url_ldpi"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:id="@+id/image3"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@+id/image3"
-                android:layout_toLeftOf="@+id/tv_details">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_textview3"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16dp"
-                    android:fontFamily="@font/lato_regular"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recycleritem_users_textview2"
-                    android:id="@+id/tv_repourl"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/lato_black"/>
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_language_ldpi"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:id="@+id/image4"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@+id/image4"
-                android:layout_toLeftOf="@+id/tv_details">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_textview4"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16dp"
-                    android:fontFamily="@font/lato_regular"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recycleritem_users_textview2"
-                    android:id="@+id/tv_language"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/lato_black"/>
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_calendar_ldpi"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:id="@+id/image5"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@+id/image5"
-                android:layout_toLeftOf="@+id/tv_details">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_textview5"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16dp"
-                    android:fontFamily="@font/lato_regular"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recycleritem_users_textview2"
-                    android:id="@+id/tv_createdon"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/lato_black"/>
-            </LinearLayout>
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_below="@+id/tv_resultcount"
+            android:background="@color/colorWhite"/>
     </LinearLayout>
-    </ScrollView>
 </RelativeLayout>
