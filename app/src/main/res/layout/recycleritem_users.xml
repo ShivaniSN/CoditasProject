@@ -25,11 +25,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/recycleritem_users_textview2"/>
+            android:text="@string/recycleritem_users_textview2"
+            android:id="@+id/tv_username"
+            android:fontFamily="@font/lato_regular"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/recycleritem_users_textview3"/>
+            android:text="@string/recycleritem_users_textview3"
+            android:id="@+id/tv_score"
+            android:fontFamily="@font/lato_regular"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -38,5 +42,6 @@
         android:layout_alignParentRight="true"
         android:text="@string/recycleritem_users_textview1"
         android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/tv_details"/>
+        android:id="@+id/tv_details"
+        android:fontFamily="@font/lato_regular"/>
 </RelativeLayout>
