@@ -15,4 +15,9 @@
     <string name="recycleritem_users_textview3">Score</string>
     <string name="dialog_button1">Cancel</string>
     <string name="dialog_button2">Apply</string>
+    <string name="details_textview1">Repository Name</string>
+    <string name="details_textview2">Repository Description</string>
+    <string name="details_textview3">Repository URL</string>
+    <string name="details_textview4">Language</string>
+    <string name="details_textview5">Created On</string>
 </resources>

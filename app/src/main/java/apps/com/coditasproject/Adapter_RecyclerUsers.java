@@ -18,6 +18,7 @@ public class Adapter_RecyclerUsers extends RecyclerView.Adapter<Adapter_Recycler
     private List<List_Users> channelsList;
     Context context;
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewUsername,textViewScore,textViewViwDetails;
         public CircleImageView circleImageViewProfile;

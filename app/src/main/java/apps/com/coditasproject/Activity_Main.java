@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,11 +60,14 @@ public class Activity_Main extends AppCompatActivity {
     SearchView searchView = null;
     RecyclerView recyclerViewUsers;
     TextView textViewResultCount;
+    LinearLayoutManager mLayoutManager;
 
     String stringSearch = "";
     List<List_Users> usersList = new ArrayList<List_Users>();
     private Adapter_RecyclerUsers pgAdapter;
     String[] spinnerListSort = {"Name [A-Z]", "Nmae [Z-A]","Rank Up","Rank Down"};
+    private boolean loading = true;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +85,38 @@ public class Activity_Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initNavigationDrawer();
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewUsers.setLayoutManager(mLayoutManager);
         recyclerViewUsers.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerViewUsers.setItemAnimator(new DefaultItemAnimator());
         recyclerViewUsers.setAdapter(pgAdapter);
+        recyclerViewUsers.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                //super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-        //getUsersVolleyRequest();
+                    if (loading)
+                    {
+                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+                        {
+                            loading = false;
+                            Log.v("...", "Last Item Wow !");
+                            //Do pagination.. i.e. fetch new data
+                            getUsersVolleyRequest();
+                        }
+                    }
+                }
+            }
+        });
 
         relativeLayoutSort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +143,7 @@ public class Activity_Main extends AppCompatActivity {
 //                            intBillingType = 1;
                     }
                 });
-
                 dialog.show();
-
                 // if decline button is clicked, close the custom dialog
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
