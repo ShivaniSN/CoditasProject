@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -61,11 +62,12 @@ public class Activity_Main extends AppCompatActivity {
     RecyclerView recyclerViewUsers;
     TextView textViewResultCount;
     LinearLayoutManager mLayoutManager;
+    BottomSheetBehavior bottomSheetBehavior;
 
     String stringSearch = "";
     List<List_Users> usersList = new ArrayList<List_Users>();
     private Adapter_RecyclerUsers pgAdapter;
-    String[] spinnerListSort = {"Name [A-Z]", "Nmae [Z-A]","Rank Up","Rank Down"};
+    String[] spinnerListSort = {"Name [A-Z]", "Name [Z-A]","Rank Up","Rank Down"};
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
 
@@ -81,6 +83,8 @@ public class Activity_Main extends AppCompatActivity {
         recyclerViewUsers = (RecyclerView)findViewById(R.id.recycler_viewUsers);
         textViewResultCount = (TextView)findViewById(R.id.tv_resultcount);
         pgAdapter = new Adapter_RecyclerUsers(usersList,Activity_Main.this);
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         setSupportActionBar(toolbar);
         initNavigationDrawer();
@@ -131,46 +135,10 @@ public class Activity_Main extends AppCompatActivity {
         relativeLayoutSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(Activity_Main.this);
-                // Include dialog.xml file
-                dialog.setContentView(R.layout.dialog_sort);
-                // Set dialog title
-                dialog.setTitle("Custom Dialog");
-
-                // set values for custom dialog components - text, image and button
-                MaterialBetterSpinner materialBetterSpinnerFilter = (MaterialBetterSpinner) dialog.findViewById(R.id.spinnerSort);
-                Button buttonCancel = (Button) dialog.findViewById(R.id.btn_cancel);
-                Button buttonApply = (Button) dialog.findViewById(R.id.btn_apply);
-
-                ArrayAdapter<String> arrayAdapterSubType = new ArrayAdapter<String>(Activity_Main.this,
-                        android.R.layout.simple_dropdown_item_1line, spinnerListSort);
-                materialBetterSpinnerFilter.setAdapter(arrayAdapterSubType);
-                materialBetterSpinnerFilter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        stringSubType = parent.getItemAtPosition(position).toString();
-//                        if (stringSubType.equals("Billing"))
-//                            intBillingType = 1;
-                    }
-                });
-                dialog.show();
-                // if decline button is clicked, close the custom dialog
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Close dialog
-                        dialog.dismiss();
-                    }
-                });
-
-                buttonApply.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //filter the recyclerview
-                    }
-                });
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
+
     }
 
     @Override
