@@ -48,6 +48,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +86,11 @@ public class Activity_Main extends AppCompatActivity {
         textViewResultCount = (TextView)findViewById(R.id.tv_resultcount);
         pgAdapter = new Adapter_RecyclerUsers(usersList,Activity_Main.this);
         View bottomSheet = findViewById(R.id.bottom_sheet);
+        View bottomSheet_CancelButton = findViewById(R.id.btn_cancel);
+        View bottomSheet_NameAZ = findViewById(R.id.tv_nameaz);
+        View bottomSheet_NameZA = findViewById(R.id.tv_nameza);
+        View bottomSheet_RankUp = findViewById(R.id.tv_rankup);
+        View bottomSheet_RankDown = findViewById(R.id.tv_rankdown);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         setSupportActionBar(toolbar);
@@ -94,6 +101,11 @@ public class Activity_Main extends AppCompatActivity {
         recyclerViewUsers.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerViewUsers.setItemAnimator(new DefaultItemAnimator());
         recyclerViewUsers.setAdapter(pgAdapter);
+
+        if (stringSearch.equals(""))
+            stringSearch = "search";
+        getUsersVolleyRequest();
+
         recyclerViewUsers.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -139,6 +151,79 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
+        bottomSheet_CancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+//        bottomSheet_RankUp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    Collections.sort(usersList);
+//                }catch(NumberFormatException ex){ // handle your exception
+//                    Toast.makeText(Activity_Main.this,ex.toString(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
+        bottomSheet_NameAZ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(usersList, new Comparator<List_Users>() {
+                    @Override
+                    public int compare(List_Users o1, List_Users o2) {
+                        return o1.stringUserName.compareTo(o2.stringUserName);
+                    }
+                });
+                pgAdapter.notifyDataSetChanged();
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        bottomSheet_NameZA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(usersList, new Comparator<List_Users>() {
+                    @Override
+                    public int compare(List_Users o1, List_Users o2) {
+                        return o2.stringUserName.compareTo(o1.stringUserName);
+                    }
+                });
+                pgAdapter.notifyDataSetChanged();
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        bottomSheet_RankDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(usersList, new Comparator<List_Users>() {
+                    @Override
+                    public int compare(List_Users o1, List_Users o2) {
+                        return o2.stringScore.compareTo(o1.stringScore);
+                    }
+                });
+                pgAdapter.notifyDataSetChanged();
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        bottomSheet_RankUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(usersList, new Comparator<List_Users>() {
+                    @Override
+                    public int compare(List_Users o1, List_Users o2) {
+                        return o1.stringScore.compareTo(o2.stringScore);
+                    }
+                });
+                pgAdapter.notifyDataSetChanged();
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
     }
 
     @Override
@@ -208,6 +293,7 @@ public class Activity_Main extends AppCompatActivity {
                             JSONObject json = new JSONObject(response);
 
                             if (json.has("total_count")) {
+                                usersList.clear();
                                 textViewResultCount.setText("Showing " + json.getString("total_count") + " results");
 
                                 JSONArray items = new JSONArray(json.getString("items"));

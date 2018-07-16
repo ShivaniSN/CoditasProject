@@ -1,5 +1,7 @@
 package apps.com.coditasproject;
 
+import android.support.annotation.NonNull;
+
 public class List_Users {
 
     String stringUserName,stringId,stringProfileImage,stringScore;
@@ -42,4 +44,11 @@ public class List_Users {
     public void setStringScore(String stringScore) {
         this.stringScore = stringScore;
     }
+
+    public static final Comparable<List_Users> BY_NAME_ALPHABETICAL = new Comparable<List_Users>() {
+        @Override
+        public int compareTo(List_Users o) {
+            return o.stringUserName.compareTo(o.stringUserName);
+        }
+    };
 }
